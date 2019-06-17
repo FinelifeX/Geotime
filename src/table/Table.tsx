@@ -1,8 +1,12 @@
 import React from 'react';
 import './Table.css';
 import ExpandableRow from './expandable/ExpandableRow';
+import geotime from '../data/geotime';
 
 const Table: React.FC = props => {
+  const geodata = geotime.map(item => (
+    <ExpandableRow name={item.text} subs={item.children} />
+  ));
   return (
     <div className='table-container'>
       <div className='table-row'>
@@ -15,7 +19,7 @@ const Table: React.FC = props => {
           <div className='h1'>Reservoir</div>
           <div
             className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '14px', padding: '14px' }}>
+            style={{ marginTop: '8px', padding: '8px' }}>
             <div>Clastics</div>
             <div>Carbonates</div>
           </div>
@@ -24,13 +28,13 @@ const Table: React.FC = props => {
           <div className='h1'>Hydrocarbon</div>
           <div
             className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '14px', padding: '14px' }}>
+            style={{ marginTop: '8px', padding: '8px' }}>
             <div>Gas</div>
             <div>Oil</div>
           </div>
         </div>
       </div>
-      <ExpandableRow />
+      {geodata}
     </div>
   );
 };

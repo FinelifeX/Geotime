@@ -48,7 +48,7 @@
 }
 
 .h1 {
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 
 .h2 {
@@ -57,7 +57,7 @@
 
 .table-header {
   background: gold;
-  padding: 12px 0 12px 0;
+  padding: 8px 0 0 0;
 }
 
 a {

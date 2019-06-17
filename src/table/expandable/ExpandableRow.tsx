@@ -1,15 +1,75 @@
 import './Expandable.css';
 import React from 'react';
+import icsColors from '../../data/icsColours';
 
-const icon = (
-  <svg width='20' height='20'>
+// For case with "Cenozoic": ["#ffffff"]
+// const colors = Object.entries(icsColors);
+
+// function chooseColor(name: string): string {
+//   const color = colors.find(item => item[0] === name);
+//   if (color) {
+//     return color[1][0];
+//   } else {
+//     return 'pink';
+//   }
+// }
+
+const iconYellowCircle = (
+  <svg width='50' height='50'>
     <circle
-      cx='10'
-      cy='10'
-      r='8'
-      stroke='green'
-      stroke-width='1'
+      cx='25'
+      cy='25'
+      r='12'
+      stroke='goldenrod'
+      strokeWidth='2'
       fill='yellow'
+    />
+  </svg>
+);
+
+const iconGreenCircle = (
+  <svg width='50' height='50'>
+    <circle
+      cx='25'
+      cy='25'
+      r='12'
+      stroke='green'
+      strokeWidth='2'
+      fill='lightgreen'
+    />
+  </svg>
+);
+
+const iconBlueCircle = (
+  <svg width='50' height='50'>
+    <circle
+      cx='25'
+      cy='25'
+      r='12'
+      stroke='darkblue'
+      strokeWidth='2'
+      fill='blue'
+    />
+  </svg>
+);
+
+const iconGreyCircle = (
+  <svg width='50' height='50'>
+    <circle cx='25' cy='25' r='12' stroke='black' strokeWidth='2' fill='gray' />
+  </svg>
+);
+
+const iconSquare = (
+  <svg width='50' height='50'>
+    <rect
+      x='15'
+      y='15'
+      width='20'
+      height='20'
+      fill='violet'
+      stroke='darkviolet'
+      strokeWidth='2'
+      transform='rotate(45 25 25)'
     />
   </svg>
 );
@@ -21,7 +81,7 @@ class ExpandableRow extends React.Component<any, any> {
   };
 
   static defaultProps: Readonly<any> = {
-    name: 'Cenozoic',
+    name: 'Unknown',
     source: 1,
     reservoir: {
       clastics: 25,
@@ -34,32 +94,7 @@ class ExpandableRow extends React.Component<any, any> {
     multiplier: 0,
     margin: '8px',
     offset: [],
-    subs: [
-      {
-        name: 'Quaternary',
-        source: 1,
-        reservoir: {
-          clastics: 25,
-          carbonates: 8,
-        },
-        hydrocarbon: {
-          gas: 1,
-          oil: 5,
-        },
-      },
-      {
-        name: 'Neogene',
-        source: 1,
-        reservoir: {
-          clastics: 25,
-          carbonates: 8,
-        },
-        hydrocarbon: {
-          gas: 1,
-          oil: 5,
-        },
-      },
-    ],
+    subs: [],
   };
 
   offset = this.props.offset.map((item: any) => (
@@ -71,10 +106,8 @@ class ExpandableRow extends React.Component<any, any> {
     />
   ));
 
-  colors = ['pink', 'lightsteelblue', 'green', 'lightgreen', 'lightgrey'];
-
-  chooseRandomColor = () =>
-    this.colors[Math.floor(Math.random() * this.colors.length)];
+  // color: string = chooseColor(this.props.name);
+  color = icsColors[this.props.name][0];
 
   onClickExpand = () => {
     if (this.state.isExpanded) {
@@ -85,11 +118,10 @@ class ExpandableRow extends React.Component<any, any> {
       this.setState({
         subs: this.props.subs.map((sub: any) => (
           <ExpandableRow
-            margin={'8px'}
-            backgroundColor={this.chooseRandomColor}
-            name={sub.name}
-            reservoir={sub.reservoir}
-            hydrocarbon={sub.hydrocarbon}
+            margin={this.props.margin}
+            backgroundColor={icsColors[sub.text][0]}
+            name={sub.text}
+            subs={sub.children}
             multiplier={this.props.multiplier + 1}
             offset={this.props.offset.concat(
               <div
@@ -105,9 +137,9 @@ class ExpandableRow extends React.Component<any, any> {
     });
   };
 
-  color = this.chooseRandomColor();
-
   render() {
+    console.log(this.props.subs);
+
     return (
       <div
         style={{
@@ -123,43 +155,59 @@ class ExpandableRow extends React.Component<any, any> {
               {this.props.offset}
               <div
                 className='table-cell-flex--vertical'
-                style={{ height: '64px' }}>
-                <div style={{ fontSize: '1.2em' }}>
+                style={{ height: '64px', padding: '8px' }}>
+                <div style={{ fontSize: '1.6em', fontWeight: 'bold' }}>
                   <div>
-                    <button onClick={this.onClickExpand}>
-                      {this.state.isExpanded ? '[ - ]' : '[ + ]'}
-                    </button>
-                    {this.props.name}
+                    {this.props.subs.length > 0 ? (
+                      <button onClick={this.onClickExpand}>
+                        {this.state.isExpanded ? '[ - ]' : '[ + ]'}
+                      </button>
+                    ) : null}
+                    <span className='contrast'>{this.props.name}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className='table-col-2'>
+          <div className='table-col-2' style={{ borderColor: this.color }}>
             <div className='table-cell-flex--vertical'>
-              <div>{icon}</div>
-              <div>{this.props.source}</div>
+              <div>{iconSquare}</div>
+              <div>
+                <a href='/'>{this.props.source}</a>
+              </div>
             </div>
           </div>
-          <div className='table-col-3 table-cell-flex--horizontal'>
+          <div
+            className='table-col-3 table-cell-flex--horizontal'
+            style={{ borderColor: this.color }}>
             <div className='table-cell-flex--vertical'>
-              <div>{icon}</div>
-              <div>{this.props.reservoir.clastics}</div>
+              <div>{iconYellowCircle}</div>
+              <div>
+                <a href='/'>{this.props.reservoir.clastics}</a>
+              </div>
             </div>
             <div className='table-cell-flex--vertical'>
-              <div>{icon}</div>
-              <div>{this.props.reservoir.carbonates}</div>
+              <div>{iconBlueCircle}</div>
+              <div>
+                <a href='/'>{this.props.reservoir.carbonates}</a>
+              </div>
             </div>
           </div>
-          <div className='table-col-4 table-cell-flex--horizontal'>
+          <div
+            className='table-col-4 table-cell-flex--horizontal'
+            style={{ borderColor: this.color }}>
             <div className='table-cell-flex--vertical'>
-              <div>{icon}</div>
-              <div>{this.props.hydrocarbon.gas}</div>
+              <div>{iconGreenCircle}</div>
+              <div>
+                <a href='/'>{this.props.hydrocarbon.gas}</a>
+              </div>
             </div>
             <div className='table-cell-flex--vertical'>
-              <div>{icon}</div>
-              <div>{this.props.hydrocarbon.oil}</div>
+              <div>{iconGreyCircle}</div>
+              <div>
+                <a href='/'>{this.props.hydrocarbon.oil}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -169,7 +217,7 @@ class ExpandableRow extends React.Component<any, any> {
             <div
               style={{
                 background: this.color,
-                height: this.state.isExpanded ? '8px' : undefined,
+                height: this.state.isExpanded ? '12px' : undefined,
               }}
             />
           )}
