@@ -15,7 +15,7 @@ const Table: React.FC = props => {
           <div className='h1'>Reservoir</div>
           <div
             className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '14px' }}>
+            style={{ marginTop: '14px', padding: '14px' }}>
             <div>Clastics</div>
             <div>Carbonates</div>
           </div>
@@ -24,7 +24,7 @@ const Table: React.FC = props => {
           <div className='h1'>Hydrocarbon</div>
           <div
             className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '14px' }}>
+            style={{ marginTop: '14px', padding: '14px' }}>
             <div>Gas</div>
             <div>Oil</div>
           </div>

@@ -32,7 +32,8 @@ class ExpandableRow extends React.Component<any, any> {
       oil: 5,
     },
     multiplier: 0,
-    margin: '0px',
+    margin: '8px',
+    offset: [],
     subs: [
       {
         name: 'Quaternary',
@@ -61,6 +62,15 @@ class ExpandableRow extends React.Component<any, any> {
     ],
   };
 
+  offset = this.props.offset.map((item: any) => (
+    <div
+      style={{
+        width: `calc(${this.props.margin} * ${this.props.multiplier}`,
+        background: this.color,
+      }}
+    />
+  ));
+
   colors = ['pink', 'lightsteelblue', 'green', 'lightgreen', 'lightgrey'];
 
   chooseRandomColor = () =>
@@ -81,7 +91,11 @@ class ExpandableRow extends React.Component<any, any> {
             reservoir={sub.reservoir}
             hydrocarbon={sub.hydrocarbon}
             multiplier={this.props.multiplier + 1}
-            parentColor={this.color}
+            offset={this.props.offset.concat(
+              <div
+                style={{ width: this.props.margin, background: this.color }}
+              />
+            )}
           />
         )),
       });
@@ -101,12 +115,12 @@ class ExpandableRow extends React.Component<any, any> {
         }}>
         <div className='table-row'>
           <div className='table-col-1'>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div
-                style={{
-                  width: `calc(${this.props.margin} * ${this.props.multiplier}`,
-                }}
-              />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              {this.props.offset}
               <div
                 className='table-cell-flex--vertical'
                 style={{ height: '64px' }}>
@@ -150,6 +164,16 @@ class ExpandableRow extends React.Component<any, any> {
           </div>
         </div>
         {this.state.subs}
+        <div className='table-row'>
+          {this.props.offset.concat(
+            <div
+              style={{
+                background: this.color,
+                height: this.state.isExpanded ? '8px' : undefined,
+              }}
+            />
+          )}
+        </div>
       </div>
     );
   }
