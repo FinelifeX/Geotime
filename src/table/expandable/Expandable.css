@@ -6,13 +6,4 @@ button {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1em;
   outline: none;
-  color: black;
-}
-
-button:hover {
-  color: white;
-}
-
-.contrast {
-  color: inherit;
 }

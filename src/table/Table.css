@@ -12,23 +12,21 @@
 
 .table-col-2 {
   width: 10%;
-  background: lightyellow;
 }
 
 .table-col-3 {
   width: 35%;
-  background: lightyellow;
 }
 
 .table-col-4 {
   width: 30%;
-  background: lightyellow;
 }
 
 .table-col-2,
 .table-col-3,
 .table-col-4 {
   border: 1px solid yellow;
+  background: transparent;
 }
 
 .table-cell-flex--horizontal,
@@ -56,7 +54,7 @@
 }
 
 .table-header {
-  background: gold;
+  background: #fddd43;
   padding: 8px 0 0 0;
 }
 

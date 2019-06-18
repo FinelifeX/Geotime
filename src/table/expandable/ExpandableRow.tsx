@@ -1,18 +1,16 @@
 import './Expandable.css';
 import React from 'react';
-import icsColors from '../../data/icsColours';
+import icsColors from '../../data/chrono-colors';
 
-// For case with "Cenozoic": ["#ffffff"]
-// const colors = Object.entries(icsColors);
-
-// function chooseColor(name: string): string {
-//   const color = colors.find(item => item[0] === name);
-//   if (color) {
-//     return color[1][0];
-//   } else {
-//     return 'pink';
-//   }
-// }
+function transparentizeColor(hexValue: string) {
+  const bigInt = parseInt(hexValue.slice(1), 16);
+  let rgbaString = 'rgba(';
+  rgbaString += ((bigInt >> 16) & 255) + ', ';
+  rgbaString += ((bigInt >> 8) & 255) + ', ';
+  rgbaString += (bigInt & 255) + ', 0.4)';
+  console.log(rgbaString);
+  return rgbaString;
+}
 
 const iconYellowCircle = (
   <svg width='50' height='50'>
@@ -101,13 +99,14 @@ class ExpandableRow extends React.Component<any, any> {
     <div
       style={{
         width: `calc(${this.props.margin} * ${this.props.multiplier}`,
-        background: this.color,
+        background: this.backgroundColor,
       }}
     />
   ));
 
-  // color: string = chooseColor(this.props.name);
-  color = icsColors[this.props.name][0];
+  backgroundColor = icsColors[this.props.name][0];
+  textColor = icsColors[this.props.name][1];
+  dataCellBackgroundColor = transparentizeColor(this.backgroundColor);
 
   onClickExpand = () => {
     if (this.state.isExpanded) {
@@ -119,13 +118,15 @@ class ExpandableRow extends React.Component<any, any> {
         subs: this.props.subs.map((sub: any) => (
           <ExpandableRow
             margin={this.props.margin}
-            backgroundColor={icsColors[sub.text][0]}
             name={sub.text}
             subs={sub.children}
             multiplier={this.props.multiplier + 1}
             offset={this.props.offset.concat(
               <div
-                style={{ width: this.props.margin, background: this.color }}
+                style={{
+                  width: this.props.margin,
+                  background: this.backgroundColor,
+                }}
               />
             )}
           />
@@ -143,10 +144,12 @@ class ExpandableRow extends React.Component<any, any> {
     return (
       <div
         style={{
-          background: this.color,
+          color: this.textColor,
         }}>
         <div className='table-row'>
-          <div className='table-col-1'>
+          <div
+            className='table-col-1'
+            style={{ background: this.backgroundColor }}>
             <div
               style={{
                 display: 'flex',
@@ -159,18 +162,25 @@ class ExpandableRow extends React.Component<any, any> {
                 <div style={{ fontSize: '1.6em', fontWeight: 'bold' }}>
                   <div>
                     {this.props.subs.length > 0 ? (
-                      <button onClick={this.onClickExpand}>
+                      <button
+                        onClick={this.onClickExpand}
+                        style={{ color: this.textColor }}>
                         {this.state.isExpanded ? '[ - ]' : '[ + ]'}
                       </button>
-                    ) : null}
-                    <span className='contrast'>{this.props.name}</span>
+                    ) : null}{' '}
+                    <span>{this.props.name}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className='table-col-2' style={{ borderColor: this.color }}>
+          <div
+            className='table-col-2'
+            style={{
+              borderColor: this.backgroundColor,
+              backgroundColor: this.dataCellBackgroundColor,
+            }}>
             <div className='table-cell-flex--vertical'>
               <div>{iconSquare}</div>
               <div>
@@ -180,7 +190,10 @@ class ExpandableRow extends React.Component<any, any> {
           </div>
           <div
             className='table-col-3 table-cell-flex--horizontal'
-            style={{ borderColor: this.color }}>
+            style={{
+              borderColor: this.backgroundColor,
+              background: this.dataCellBackgroundColor,
+            }}>
             <div className='table-cell-flex--vertical'>
               <div>{iconYellowCircle}</div>
               <div>
@@ -196,7 +209,10 @@ class ExpandableRow extends React.Component<any, any> {
           </div>
           <div
             className='table-col-4 table-cell-flex--horizontal'
-            style={{ borderColor: this.color }}>
+            style={{
+              borderColor: this.backgroundColor,
+              background: this.dataCellBackgroundColor,
+            }}>
             <div className='table-cell-flex--vertical'>
               <div>{iconGreenCircle}</div>
               <div>
@@ -216,8 +232,9 @@ class ExpandableRow extends React.Component<any, any> {
           {this.props.offset.concat(
             <div
               style={{
-                background: this.color,
+                background: this.backgroundColor,
                 height: this.state.isExpanded ? '12px' : undefined,
+                width: '100%',
               }}
             />
           )}
