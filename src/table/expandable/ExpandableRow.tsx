@@ -233,7 +233,7 @@ class ExpandableRow extends React.Component<any, any> {
             <div
               style={{
                 background: this.backgroundColor,
-                height: this.state.isExpanded ? '12px' : undefined,
+                height: this.state.isExpanded ? '10px' : undefined,
                 width: '100%',
               }}
             />
