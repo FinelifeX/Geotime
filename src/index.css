@@ -9,3 +9,8 @@ body {
 .table-container {
   width: 100vw;
 }
+
+h2,
+h3 {
+  margin: 8px;
+}

@@ -13,10 +13,10 @@ function transparentizeColor(hexValue: string) {
 }
 
 const iconYellowCircle = (
-  <svg width='50' height='50'>
+  <svg width='48' height='48'>
     <circle
-      cx='25'
-      cy='25'
+      cx='24'
+      cy='24'
       r='12'
       stroke='goldenrod'
       strokeWidth='2'
@@ -26,10 +26,10 @@ const iconYellowCircle = (
 );
 
 const iconGreenCircle = (
-  <svg width='50' height='50'>
+  <svg width='48' height='48'>
     <circle
-      cx='25'
-      cy='25'
+      cx='24'
+      cy='24'
       r='12'
       stroke='green'
       strokeWidth='2'
@@ -39,10 +39,10 @@ const iconGreenCircle = (
 );
 
 const iconBlueCircle = (
-  <svg width='50' height='50'>
+  <svg width='48' height='48'>
     <circle
-      cx='25'
-      cy='25'
+      cx='24'
+      cy='24'
       r='12'
       stroke='darkblue'
       strokeWidth='2'
@@ -52,8 +52,8 @@ const iconBlueCircle = (
 );
 
 const iconGreyCircle = (
-  <svg width='50' height='50'>
-    <circle cx='25' cy='25' r='12' stroke='black' strokeWidth='2' fill='gray' />
+  <svg width='48' height='48'>
+    <circle cx='24' cy='24' r='12' stroke='black' strokeWidth='2' fill='gray' />
   </svg>
 );
 
@@ -93,6 +93,7 @@ class ExpandableRow extends React.Component<any, any> {
     margin: '8px',
     offset: [],
     subs: [],
+    fontSizeMult: 1,
   };
 
   offset = this.props.offset.map((item: any) => (
@@ -129,6 +130,7 @@ class ExpandableRow extends React.Component<any, any> {
                 }}
               />
             )}
+            fontSizeMult={this.props.fontSizeMult * 0.9}
           />
         )),
       });
@@ -159,16 +161,24 @@ class ExpandableRow extends React.Component<any, any> {
               <div
                 className='table-cell-flex--vertical'
                 style={{ height: '64px', padding: '8px' }}>
-                <div style={{ fontSize: '1.6em', fontWeight: 'bold' }}>
+                <div>
                   <div>
-                    {this.props.subs.length > 0 ? (
-                      <button
-                        onClick={this.onClickExpand}
-                        style={{ color: this.textColor }}>
-                        {this.state.isExpanded ? '[ - ]' : '[ + ]'}
-                      </button>
-                    ) : null}{' '}
-                    <span>{this.props.name}</span>
+                    <h1>
+                      {this.props.subs.length > 0 ? (
+                        <button
+                          onClick={this.onClickExpand}
+                          style={{
+                            color: this.textColor,
+                            fontSize: `${this.props.fontSizeMult}em`,
+                          }}>
+                          {this.state.isExpanded ? '[ - ]' : '[ + ]'}
+                        </button>
+                      ) : null}{' '}
+                      <span
+                        style={{ fontSize: `${this.props.fontSizeMult}em` }}>
+                        {this.props.name}
+                      </span>
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -233,7 +243,7 @@ class ExpandableRow extends React.Component<any, any> {
             <div
               style={{
                 background: this.backgroundColor,
-                height: this.state.isExpanded ? '12px' : undefined,
+                height: this.state.isExpanded ? '10px' : undefined,
                 width: '100%',
               }}
             />

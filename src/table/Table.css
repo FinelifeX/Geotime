@@ -25,7 +25,9 @@
 .table-col-2,
 .table-col-3,
 .table-col-4 {
-  border: 1px solid yellow;
+  border-left: 2px solid yellow;
+  border-right: 2px solid yellow;
+  border-bottom: 2px solid yellow;
   background: transparent;
 }
 
@@ -43,14 +45,6 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-}
-
-.h1 {
-  font-size: 1.4em;
-}
-
-.h2 {
-  font-size: 1em;
 }
 
 .table-header {

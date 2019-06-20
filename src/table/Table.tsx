@@ -14,23 +14,33 @@ const Table: React.FC = props => {
           className='table-header table-col-1'
           style={{ background: 'transparent' }}
         />
-        <div className='table-header table-col-2 h1'>Source</div>
+        <div className='table-header table-col-2'>
+          <h2>Source</h2>
+        </div>
         <div className='table-header table-col-3 table-cell-flex--vertical'>
-          <div className='h1'>Reservoir</div>
-          <div
-            className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '8px', padding: '8px' }}>
-            <div>Clastics</div>
-            <div>Carbonates</div>
+          <div>
+            <h2>Reservoir</h2>
+          </div>
+          <div className='table-cell-flex--horizontal'>
+            <div>
+              <h3>Clastics</h3>
+            </div>
+            <div>
+              <h3>Carbonates</h3>
+            </div>
           </div>
         </div>
         <div className='table-header table-col-4 table-cell-flex--vertical'>
-          <div className='h1'>Hydrocarbon</div>
-          <div
-            className='table-cell-flex--horizontal h2'
-            style={{ marginTop: '8px', padding: '8px' }}>
-            <div>Gas</div>
-            <div>Oil</div>
+          <div>
+            <h2>Hydrocarbon</h2>
+          </div>
+          <div className='table-cell-flex--horizontal'>
+            <div>
+              <h3>Gas</h3>
+            </div>
+            <div>
+              <h3>Oil</h3>
+            </div>
           </div>
         </div>
       </div>
