@@ -1,0 +1,57 @@
+.table-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-col-1 {
+  width: 25%;
+  max-width: 25%;
+  text-align: left;
+  background: transparent;
+}
+
+.table-col-2 {
+  width: 10%;
+}
+
+.table-col-3 {
+  width: 35%;
+}
+
+.table-col-4 {
+  width: 30%;
+}
+
+.table-col-2,
+.table-col-3,
+.table-col-4 {
+  border-left: 2px solid yellow;
+  border-right: 2px solid yellow;
+  border-bottom: 2px solid yellow;
+  background: transparent;
+}
+
+.table-cell-flex--horizontal,
+.table-cell-flex--vertical {
+  display: flex;
+}
+
+.table-cell-flex--horizontal {
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.table-cell-flex--vertical {
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.table-header {
+  background: #fddd43;
+  padding: 8px 0 0 0;
+}
+
+a {
+  color: black;
+}
